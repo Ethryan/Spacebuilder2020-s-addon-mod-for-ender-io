@@ -8,7 +8,7 @@ import crazypants.enderio.conduit.AbstractConduitNetwork;
 public class EUConduitNetwork extends AbstractConduitNetwork<IEUConduit, IEUConduit> {
 
 	public EUConduitNetwork() {
-		super(IEUConduit.class, IEUConduit.class);
+		super(EUAbstractConduit.class, EUAbstractConduit.class);
 		// TODO Auto-generated constructor stub
 		Logger.getGlobal().log(Level.INFO,"Network created");
 	}
