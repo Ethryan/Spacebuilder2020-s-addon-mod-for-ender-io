@@ -25,7 +25,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.ForgeDirection;
 import spacebuilder2020.random_enderio_addons.Random_enderio_addons;
 
-public class EUConduit extends AbstractConduit implements IEUConduit {
+public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 
 	private ConduitDelegate cD = null;
 	
