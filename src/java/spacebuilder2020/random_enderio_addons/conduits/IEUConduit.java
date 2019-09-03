@@ -2,9 +2,9 @@ package spacebuilder2020.random_enderio_addons.conduits;
 
 
 import crazypants.enderio.conduit.AbstractConduitNetwork;
-import crazypants.enderio.conduit.IConduit;
+import crazypants.enderio.conduit.AbstractConduit;
 import net.minecraftforge.common.util.ForgeDirection;
 
-public interface IEUConduit extends IConduit {
+public interface EUAbstractConduit extends AbstractConduit {
 	
 }
