@@ -123,7 +123,7 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 		@Override
 		public double getConductionLoss() {
 			// TODO Auto-generated method stub
-			return EUConduit.lossForTier[parent.tier];
+			return EUConduit.lossForTier[parent.voltage];
 		}
 
 		@Override
@@ -141,7 +141,7 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 		@Override
 		public double getConductorBreakdownEnergy() {
 			// TODO Auto-generated method stub
-			return EUConduit.energyForTier[parent.tier];
+			return EUConduit.energyForTier[parent.voltage];
 		}
 
 		@Override
@@ -164,17 +164,17 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 	{
 		this(0);
 	}
-	public EUConduit(int tier)
+	public EUConduit(int voltage)
 	{
-		this.tier = tier;
-		this.amps = ampsForTier[tier];
+		this.voltage = voltage;
+		this.amperage = ampsForTier[voltage];
 		
 	}
 	
 	
 	double EU_Stored = 0;
-	int tier;
-	int amps = 1;
+	int voltage;
+	int amperage = 1;
 	EUConduitNetwork net = null;
 	
 	@Override
@@ -182,8 +182,8 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 	{
 		 super.readFromNBT(nbtRoot, nbtVersion);
 		 EU_Stored = nbtRoot.getDouble("EU_Stored");
-		 tier = nbtRoot.getInteger("tier");
-		 amps = nbtRoot.getInteger("amps");
+		 voltage = nbtRoot.getInteger("voltage");
+		 amps = nbtRoot.getInteger("amperage");
 	}
 	
 	@Override
@@ -191,7 +191,7 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 	{
 		 super.writeToNBT(nbtRoot);
 		 nbtRoot.setDouble("EU_Stored", EU_Stored);
-		 nbtRoot.setInteger("tier", tier);
+		 nbtRoot.setInteger("voltage", voltage);
 		 nbtRoot.setInteger("amps", amps);
 	}
 	@Override
@@ -220,14 +220,14 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 
 	@Override
 	public IIcon getTextureForState(CollidableComponent component) {
-		ItemStack it = getBlockForTier(tier);
+		ItemStack it = getBlockForTier(voltage);
 		return StackUtil.getBlock(it).getIcon(0, it.getItemDamage());
 	}
 	
-	public ItemStack getBlockForTier(int tier)
+	public ItemStack getBlockForTier(int voltage)
 	{
 		
-		switch (tier)
+		switch (voltage)
 		{
 		case 0:
 			return Ic2Items.leadBlock;
@@ -259,7 +259,7 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 
 	boolean isFull()
 	{
-		return EU_Stored >= amps*energyForTier[tier];
+		return EU_Stored >= amps*energyForTier[voltage];
 	}
 	
 	@Override
@@ -269,7 +269,7 @@ public class EUConduit extends AbstractConduit implements EUAbstractConduit {
 	      return false;
 	    }
 	    if(conduit instanceof EUConduit) {
-	      return ((EUConduit) conduit).tier == tier;
+	      return ((EUConduit) conduit).voltage == voltage;
 	    }
 	    return false;*/
 		return super.canConnectToConduit(direction, conduit);
